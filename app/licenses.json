@@ -1,0 +1,56 @@
+[
+  {
+    "kind": "Engine",
+    "name": "ComfyUI",
+    "license": "GPL-3.0",
+    "url": "https://github.com/Comfy-Org/ComfyUI/blob/master/LICENSE"
+  },
+  {
+    "kind": "Dependency",
+    "name": "CyToolsCore",
+    "license": "MIT",
+    "url": "https://github.com/MrMybal/CyToolsCore"
+  },
+  {
+    "kind": "Dependency",
+    "name": "CyMCPSDK",
+    "license": "MIT",
+    "url": "https://github.com/MrMybal/CyMCPSDK"
+  },
+  {
+    "kind": "Dependency",
+    "name": "CyUI 1.2.0",
+    "license": "MIT",
+    "url": "https://github.com/MrMybal/CyUI"
+  },
+  {
+    "kind": "Model",
+    "name": "Stable Diffusion 1.5",
+    "license": "CreativeML Open RAIL-M",
+    "url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5"
+  },
+  {
+    "kind": "Model",
+    "name": "FLUX.1 Schnell · FP8",
+    "license": "Apache-2.0",
+    "url": "https://huggingface.co/Comfy-Org/Flux-1-Schnell"
+  },
+  {
+    "kind": "Model",
+    "name": "Qwen Image · diffusion FP8",
+    "license": "Apache-2.0",
+    "url": "https://huggingface.co/Comfy-Org/Qwen-Image"
+  },
+  {
+    "kind": "Model",
+    "name": "Qwen Image · encoder FP8",
+    "license": "Apache-2.0",
+    "url": "https://huggingface.co/Comfy-Org/Qwen-Image"
+  },
+  {
+    "kind": "Model",
+    "name": "Qwen Image · VAE",
+    "license": "Apache-2.0",
+    "url": "https://huggingface.co/Comfy-Org/Qwen-Image"
+  }
+]

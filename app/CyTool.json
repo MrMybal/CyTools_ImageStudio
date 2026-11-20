@@ -1,0 +1,1435 @@
+{
+  "schemaVersion": 1,
+  "protocolVersion": "1.0",
+  "id": "cy.tools.imagestudio",
+  "name": "CyTools_ImageStudio",
+  "version": "0.1.0",
+  "vendor": "Cyberalien",
+  "author": "Cyberalien",
+  "description": "AI image generation and editing with local or remote ComfyUI, an inpainting canvas, ControlNet, LoRA training, and MCP automation.",
+  "license": "AGPL-3.0-only",
+  "licenseUrl": "https://spdx.org/licenses/AGPL-3.0-only.html",
+  "repository": "https://github.com/MrMybal/CyTools_ImageStudio",
+  "executable": "runtime/python/Scripts/python.exe app/tool.py",
+  "standaloneExecutable": "CyTools_ImageStudio.exe",
+  "categories": [
+    "image"
+  ],
+  "tags": [
+    "ComfyUI",
+    "image-generation",
+    "ControlNet",
+    "LoRA"
+  ],
+  "capabilities": [
+    "jobs",
+    "cancellation",
+    "text-to-image",
+    "image-to-image",
+    "inpainting",
+    "workflow",
+    "lora-training"
+  ],
+  "backends": [],
+  "interfaces": [
+    "ImGui",
+    "CLI",
+    "JSONL",
+    "HTTP",
+    "MCP"
+  ],
+  "platforms": [
+    {
+      "os": "Windows",
+      "architecture": "x64",
+      "status": "Experimental",
+      "computeBackends": [
+        "CPU",
+        "CUDA"
+      ]
+    },
+    {
+      "os": "Linux",
+      "architecture": "x64",
+      "status": "Experimental",
+      "computeBackends": [
+        "CPU",
+        "CUDA"
+      ]
+    }
+  ],
+  "runtimeRequirements": [],
+  "concurrency": {
+    "policy": "Sequential",
+    "maxWorkers": 1
+  },
+  "operations": [
+    {
+      "id": "studio_status",
+      "name": "Studio status",
+      "description": "Read local backend configuration and model search paths.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "supportedBackends": [],
+      "permissions": [],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": false
+    },
+    {
+      "id": "inspect_backend",
+      "name": "Inspect ComfyUI",
+      "description": "List installed models, loaders, supported nodes, samplers and device memory. Call before choosing a generation model.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "description": "Configured ComfyUI profile. Omit for the studio default.",
+            "enum": [
+              "managed",
+              "existing",
+              "local",
+              "remote"
+            ]
+          },
+          "include_nodes": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": false
+    },
+    {
+      "id": "suggest_models",
+      "name": "Suggest image models",
+      "description": "Return named recipes with all required components visible on the selected ComfyUI. File names and loaders indicate compatibility, which the model loader verifies at execution.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "description": "Configured ComfyUI profile. Omit for the studio default.",
+            "enum": [
+              "managed",
+              "existing",
+              "local",
+              "remote"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "txt2img",
+              "img2img",
+              "inpaint"
+            ],
+            "default": "txt2img"
+          },
+          "family": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "auto",
+              "checkpoint",
+              "flux",
+              "flux2",
+              "qwen",
+              "qwen_edit",
+              "sd3"
+            ],
+            "default": "auto"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "candidates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": ""
+                },
+                "parameters": {
+                  "type": "object"
+                },
+                "basis": {
+                  "type": "string",
+                  "description": ""
+                }
+              },
+              "required": [
+                "name",
+                "parameters",
+                "basis"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 10000
+          }
+        },
+        "required": [
+          "candidates"
+        ],
+        "additionalProperties": false
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": false
+    },
+    {
+      "id": "generate",
+      "name": "Generate image",
+      "description": "Run text-to-image, image-to-image or inpainting with LoRA and ControlNet. Use the family and exact installed components from inspect_backend.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "description": "Configured ComfyUI profile. Omit for the studio default.",
+            "enum": [
+              "managed",
+              "existing",
+              "local",
+              "remote"
+            ]
+          },
+          "timeout": {
+            "type": "integer",
+            "default": 3600,
+            "minimum": 15,
+            "maximum": 86400,
+            "description": "ComfyUI execution deadline in seconds."
+          },
+          "family": {
+            "type": "string",
+            "description": "Select the graph architecture matching the weights.",
+            "enum": [
+              "checkpoint",
+              "flux",
+              "flux2",
+              "qwen",
+              "qwen_edit",
+              "sd3"
+            ],
+            "default": "checkpoint"
+          },
+          "checkpoint": {
+            "type": "string",
+            "description": "Exact checkpoint name from inspect_backend."
+          },
+          "diffusion": {
+            "type": "string",
+            "description": "Exact diffusion model name from inspect_backend."
+          },
+          "encoder": {
+            "type": "string",
+            "description": "Exact encoder. FLUX.1 takes CLIP-L here."
+          },
+          "encoder2": {
+            "type": "string",
+            "description": "FLUX.1 T5 encoder."
+          },
+          "vae": {
+            "type": "string",
+            "description": "Exact VAE name from inspect_backend."
+          },
+          "dtype": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "default",
+              "fp8_e4m3fn",
+              "fp8_e4m3fn_fast",
+              "fp8_e5m2"
+            ],
+            "default": "default"
+          },
+          "encoder_device": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "default",
+              "cpu"
+            ],
+            "default": "default"
+          },
+          "mode": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "txt2img",
+              "img2img",
+              "inpaint"
+            ],
+            "default": "txt2img"
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Positive prompt or Qwen Image Edit instruction.",
+            "maxLength": 20000,
+            "x-cy-kind": "MultilineString"
+          },
+          "negative": {
+            "type": "string",
+            "description": "Negative prompt.",
+            "maxLength": 20000,
+            "default": ""
+          },
+          "image": {
+            "type": "string",
+            "description": "Path on the ImageStudio host, imported automatically.",
+            "minLength": 1,
+            "x-cy-kind": "Image"
+          },
+          "mask": {
+            "type": "string",
+            "description": "Grayscale mask. White regions are repainted.",
+            "minLength": 1,
+            "x-cy-kind": "Image"
+          },
+          "width": {
+            "type": "integer",
+            "default": 1024,
+            "minimum": 64,
+            "maximum": 4096,
+            "multipleOf": 8
+          },
+          "height": {
+            "type": "integer",
+            "default": 1024,
+            "minimum": 64,
+            "maximum": 4096,
+            "multipleOf": 8
+          },
+          "steps": {
+            "type": "integer",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 150
+          },
+          "cfg": {
+            "type": "number",
+            "default": 7.0,
+            "minimum": 0.0,
+            "maximum": 30.0
+          },
+          "guidance": {
+            "type": "number",
+            "default": 3.5,
+            "minimum": 0.0,
+            "maximum": 30.0
+          },
+          "seed": {
+            "type": "integer",
+            "default": -1,
+            "minimum": -1,
+            "maximum": 9007199254740991,
+            "description": "Use -1 for a random seed returned in the job outputs."
+          },
+          "sampler": {
+            "type": "string",
+            "description": "KSampler sampler from inspect_backend.",
+            "default": "euler"
+          },
+          "scheduler": {
+            "type": "string",
+            "description": "KSampler scheduler from inspect_backend.",
+            "default": "normal"
+          },
+          "batch": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 8
+          },
+          "denoise": {
+            "type": "number",
+            "default": 0.65,
+            "minimum": 0.0,
+            "maximum": 1.0
+          },
+          "inpaint_method": {
+            "type": "string",
+            "description": "Use conditioning for dedicated inpaint models.",
+            "enum": [
+              "noise_mask",
+              "conditioning"
+            ],
+            "default": "noise_mask"
+          },
+          "tiled_vae": {
+            "type": "boolean",
+            "default": false
+          },
+          "tile_size": {
+            "type": "integer",
+            "default": 512,
+            "minimum": 64,
+            "maximum": 4096,
+            "multipleOf": 32
+          },
+          "tile_overlap": {
+            "type": "integer",
+            "default": 64,
+            "minimum": 0,
+            "maximum": 1024,
+            "multipleOf": 16
+          },
+          "loras": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Exact LoRA name from inspect_backend.",
+                  "minLength": 1
+                },
+                "model_strength": {
+                  "type": "number",
+                  "default": 1.0,
+                  "minimum": -8.0,
+                  "maximum": 8.0
+                },
+                "clip_strength": {
+                  "type": "number",
+                  "default": 1.0,
+                  "minimum": -8.0,
+                  "maximum": 8.0
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 12,
+            "default": []
+          },
+          "controls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "model": {
+                  "type": "string",
+                  "description": "Exact ControlNet name from inspect_backend.",
+                  "minLength": 1
+                },
+                "image": {
+                  "type": "string",
+                  "description": "Path on the ImageStudio host, imported automatically.",
+                  "minLength": 1,
+                  "x-cy-kind": "Image"
+                },
+                "strength": {
+                  "type": "number",
+                  "default": 1.0,
+                  "minimum": 0.0,
+                  "maximum": 10.0
+                },
+                "start": {
+                  "type": "number",
+                  "default": 0.0,
+                  "minimum": 0.0,
+                  "maximum": 1.0
+                },
+                "end": {
+                  "type": "number",
+                  "default": 1.0,
+                  "minimum": 0.0,
+                  "maximum": 1.0
+                },
+                "preprocess": {
+                  "type": "string",
+                  "description": "",
+                  "enum": [
+                    "none",
+                    "canny"
+                  ],
+                  "default": "none"
+                },
+                "low": {
+                  "type": "number",
+                  "default": 0.4,
+                  "minimum": 0.0,
+                  "maximum": 1.0
+                },
+                "high": {
+                  "type": "number",
+                  "default": 0.8,
+                  "minimum": 0.0,
+                  "maximum": 1.0
+                }
+              },
+              "required": [
+                "model",
+                "image"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 8,
+            "default": []
+          }
+        },
+        "required": [
+          "prompt"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "img2img",
+                    "inpaint"
+                  ]
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "required": [
+                "image"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "inpaint"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "required": [
+                "mask"
+              ]
+            }
+          }
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "promptId": {
+            "type": "string",
+            "description": ""
+          },
+          "workflow": {
+            "type": "string",
+            "description": "Effective API graph."
+          },
+          "history": {
+            "type": "string",
+            "description": "ComfyUI history."
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "description": "Job-owned absolute path."
+                },
+                "name": {
+                  "type": "string",
+                  "description": ""
+                },
+                "node": {
+                  "type": "string",
+                  "description": ""
+                },
+                "mimeType": {
+                  "type": "string",
+                  "description": ""
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "file",
+                "name",
+                "node",
+                "mimeType"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 1024
+          },
+          "seed": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "promptId",
+          "workflow",
+          "history",
+          "assets"
+        ],
+        "additionalProperties": false
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network",
+        "filesystemExternal"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": true
+    },
+    {
+      "id": "inspect_workflow",
+      "name": "Inspect workflow",
+      "description": "Read node classes, missing nodes and widget values.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "description": "Configured ComfyUI profile. Omit for the studio default.",
+            "enum": [
+              "managed",
+              "existing",
+              "local",
+              "remote"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "description": "Path on the ImageStudio host, imported automatically.",
+            "minLength": 1,
+            "x-cy-kind": "File"
+          },
+          "graph": {
+            "type": "object",
+            "description": "API prompt or editor graph."
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "oneOf": [
+          {
+            "required": [
+              "file"
+            ]
+          },
+          {
+            "required": [
+              "graph"
+            ]
+          }
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network",
+        "filesystemExternal"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": false
+    },
+    {
+      "id": "run_workflow",
+      "name": "Run workflow",
+      "description": "Submit a ComfyUI workflow with input overrides or automatic image uploads.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "description": "Configured ComfyUI profile. Omit for the studio default.",
+            "enum": [
+              "managed",
+              "existing",
+              "local",
+              "remote"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "description": "Path on the ImageStudio host, imported automatically.",
+            "minLength": 1,
+            "x-cy-kind": "File"
+          },
+          "graph": {
+            "type": "object",
+            "description": "API prompt or editor graph."
+          },
+          "timeout": {
+            "type": "integer",
+            "default": 3600,
+            "minimum": 15,
+            "maximum": 86400,
+            "description": "ComfyUI execution deadline in seconds."
+          },
+          "overrides": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "node": {
+                  "type": "string",
+                  "description": "Node id.",
+                  "minLength": 1
+                },
+                "input": {
+                  "type": "string",
+                  "description": "Node input name.",
+                  "minLength": 1
+                },
+                "value": {}
+              },
+              "required": [
+                "node",
+                "input",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 300,
+            "default": []
+          },
+          "uploads": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "node": {
+                  "type": "string",
+                  "description": "Node id.",
+                  "minLength": 1
+                },
+                "input": {
+                  "type": "string",
+                  "description": "Node input name.",
+                  "minLength": 1
+                },
+                "file": {
+                  "type": "string",
+                  "description": "Path on the ImageStudio host, imported automatically.",
+                  "minLength": 1,
+                  "x-cy-kind": "Image"
+                }
+              },
+              "required": [
+                "node",
+                "input",
+                "file"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 48,
+            "default": []
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "oneOf": [
+          {
+            "required": [
+              "file"
+            ]
+          },
+          {
+            "required": [
+              "graph"
+            ]
+          }
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "promptId": {
+            "type": "string",
+            "description": ""
+          },
+          "workflow": {
+            "type": "string",
+            "description": "Effective API graph."
+          },
+          "history": {
+            "type": "string",
+            "description": "ComfyUI history."
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "description": "Job-owned absolute path."
+                },
+                "name": {
+                  "type": "string",
+                  "description": ""
+                },
+                "node": {
+                  "type": "string",
+                  "description": ""
+                },
+                "mimeType": {
+                  "type": "string",
+                  "description": ""
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "file",
+                "name",
+                "node",
+                "mimeType"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 1024
+          },
+          "seed": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "promptId",
+          "workflow",
+          "history",
+          "assets"
+        ],
+        "additionalProperties": false
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network",
+        "filesystemExternal"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": true
+    },
+    {
+      "id": "train_lora",
+      "name": "Train LoRA",
+      "description": "Train from captioned images using native nodes on an ImageStudio-launched ComfyUI.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "description": "Configured ComfyUI profile. Omit for the studio default.",
+            "enum": [
+              "managed",
+              "existing",
+              "local",
+              "remote"
+            ]
+          },
+          "timeout": {
+            "type": "integer",
+            "default": 3600,
+            "minimum": 15,
+            "maximum": 86400,
+            "description": "ComfyUI execution deadline in seconds."
+          },
+          "family": {
+            "type": "string",
+            "description": "Select the graph architecture matching the weights.",
+            "enum": [
+              "checkpoint",
+              "flux",
+              "flux2",
+              "qwen",
+              "qwen_edit",
+              "sd3"
+            ],
+            "default": "checkpoint"
+          },
+          "checkpoint": {
+            "type": "string",
+            "description": "Exact checkpoint name from inspect_backend."
+          },
+          "diffusion": {
+            "type": "string",
+            "description": "Exact diffusion model name from inspect_backend."
+          },
+          "encoder": {
+            "type": "string",
+            "description": "Exact encoder. FLUX.1 takes CLIP-L here."
+          },
+          "encoder2": {
+            "type": "string",
+            "description": "FLUX.1 T5 encoder."
+          },
+          "vae": {
+            "type": "string",
+            "description": "Exact VAE name from inspect_backend."
+          },
+          "dtype": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "default",
+              "fp8_e4m3fn",
+              "fp8_e4m3fn_fast",
+              "fp8_e5m2"
+            ],
+            "default": "default"
+          },
+          "encoder_device": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "default",
+              "cpu"
+            ],
+            "default": "default"
+          },
+          "dataset": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string",
+                  "description": "Path on the ImageStudio host, imported automatically.",
+                  "minLength": 1,
+                  "x-cy-kind": "Image"
+                },
+                "caption": {
+                  "type": "string",
+                  "description": "Training caption.",
+                  "maxLength": 2000,
+                  "default": ""
+                }
+              },
+              "required": [
+                "image"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 256
+          },
+          "steps": {
+            "type": "integer",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 100000
+          },
+          "rank": {
+            "type": "integer",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 128
+          },
+          "learning_rate": {
+            "type": "number",
+            "default": 0.0005,
+            "minimum": 1e-07,
+            "maximum": 1.0
+          },
+          "batch_size": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 32
+          },
+          "grad_accumulation_steps": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 1024
+          },
+          "optimizer": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "AdamW",
+              "Adam",
+              "SGD",
+              "RMSprop"
+            ],
+            "default": "AdamW"
+          },
+          "seed": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "training_dtype": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "bf16",
+              "fp32",
+              "none"
+            ],
+            "default": "bf16"
+          },
+          "gradient_checkpointing": {
+            "type": "boolean",
+            "default": true
+          },
+          "offloading": {
+            "type": "boolean",
+            "default": false
+          },
+          "existing_lora": {
+            "type": "string",
+            "description": "Optional adapter to continue.",
+            "default": "[None]"
+          },
+          "checkpoint_depth": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 5
+          },
+          "lora_dtype": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "bf16",
+              "fp32"
+            ],
+            "default": "bf16"
+          },
+          "loss_function": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "MSE",
+              "L1",
+              "Huber",
+              "SmoothL1"
+            ],
+            "default": "MSE"
+          },
+          "bypass_mode": {
+            "type": "boolean",
+            "default": false
+          },
+          "quantized_backward": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "dataset"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "promptId": {
+            "type": "string",
+            "description": ""
+          },
+          "workflow": {
+            "type": "string",
+            "description": "Effective API graph."
+          },
+          "history": {
+            "type": "string",
+            "description": "ComfyUI history."
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "description": "Job-owned absolute path."
+                },
+                "name": {
+                  "type": "string",
+                  "description": ""
+                },
+                "node": {
+                  "type": "string",
+                  "description": ""
+                },
+                "mimeType": {
+                  "type": "string",
+                  "description": ""
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "file",
+                "name",
+                "node",
+                "mimeType"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 1024
+          },
+          "seed": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "promptId",
+          "workflow",
+          "history",
+          "assets"
+        ],
+        "additionalProperties": false
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network",
+        "filesystemExternal"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": true
+    },
+    {
+      "id": "download_model",
+      "name": "Download model",
+      "description": "Download or resume model weights after reviewing their license.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "checkpoints",
+              "diffusion_models",
+              "text_encoders",
+              "vae",
+              "loras",
+              "controlnet",
+              "clip_vision",
+              "embeddings",
+              "upscale_models",
+              "vae_approx",
+              "style_models",
+              "model_patches"
+            ]
+          },
+          "filename": {
+            "type": "string",
+            "description": "Destination basename with its model extension.",
+            "minLength": 1,
+            "maxLength": 141
+          },
+          "url": {
+            "type": "string",
+            "description": "Direct HTTPS URL without credentials.",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "description": "Provider SHA256.",
+            "pattern": "^[0-9a-fA-F]{64}$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "revision": {
+            "type": "string",
+            "description": "Provider version or commit."
+          },
+          "accept_license": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "category",
+          "filename",
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Persistent model path."
+          },
+          "category": {
+            "type": "string",
+            "description": ""
+          },
+          "bytes": {
+            "type": "integer"
+          },
+          "sha256Verified": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "file",
+          "category",
+          "bytes",
+          "sha256Verified"
+        ],
+        "additionalProperties": false
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network",
+        "filesystemExternal"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": true
+    },
+    {
+      "id": "import_model",
+      "name": "Install local model",
+      "description": "Install a file such as a locally trained LoRA into the writable library.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "checkpoints",
+              "diffusion_models",
+              "text_encoders",
+              "vae",
+              "loras",
+              "controlnet",
+              "clip_vision",
+              "embeddings",
+              "upscale_models",
+              "vae_approx",
+              "style_models",
+              "model_patches"
+            ]
+          },
+          "filename": {
+            "type": "string",
+            "description": "Destination basename with its model extension.",
+            "minLength": 1,
+            "maxLength": 141
+          },
+          "file": {
+            "type": "string",
+            "description": "Path on the ImageStudio host, imported automatically.",
+            "minLength": 1,
+            "x-cy-kind": "File"
+          }
+        },
+        "required": [
+          "category",
+          "filename",
+          "file"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Persistent model path."
+          },
+          "category": {
+            "type": "string",
+            "description": ""
+          },
+          "bytes": {
+            "type": "integer"
+          },
+          "sha256Verified": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "file",
+          "category",
+          "bytes",
+          "sha256Verified"
+        ],
+        "additionalProperties": false
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "filesystemExternal"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": false
+    },
+    {
+      "id": "release_memory",
+      "name": "Release memory",
+      "description": "Request cache release, or stop the ImageStudio-launched process.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "description": "Configured ComfyUI profile. Omit for the studio default.",
+            "enum": [
+              "managed",
+              "existing",
+              "local",
+              "remote"
+            ]
+          },
+          "stop": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network",
+        "manageResources"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": false
+    },
+    {
+      "id": "install_engine",
+      "name": "Install ComfyUI",
+      "description": "Provision the pinned ComfyUI and its private PyTorch without model weights.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "compute": {
+            "type": "string",
+            "description": "",
+            "enum": [
+              "cuda",
+              "cpu"
+            ],
+            "default": "cuda"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "supportedBackends": [],
+      "permissions": [
+        "network",
+        "filesystemExternal"
+      ],
+      "resourceRequirements": {
+        "ramBytes": 33554432
+      },
+      "canRunAsync": true,
+      "canCancel": true,
+      "supportsProgress": true
+    }
+  ]
+}

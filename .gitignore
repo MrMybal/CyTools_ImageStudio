@@ -1,0 +1,14 @@
+/data/*
+!/data/.gitkeep
+/runtime/*
+!/runtime/.gitkeep
+/app/packages/*.whl
+/app/Docs/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.env.*
+*.ckpt
+*.gguf
+*.safetensors

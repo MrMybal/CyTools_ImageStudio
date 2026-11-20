@@ -1,0 +1,17 @@
+CyTools_ImageStudio AGPL-3.0-only
+../LICENSE
+https://github.com/MrMybal/CyTools_ImageStudio
+
+CyUI MIT
+https://github.com/MrMybal/CyUI
+
+CyToolsCore MIT
+https://github.com/MrMybal/CyToolsCore
+
+CyMCPSDK MIT
+https://github.com/MrMybal/CyMCPSDK
+
+ComfyUI is installed or referenced independently.
+https://github.com/Comfy-Org/ComfyUI/blob/master/LICENSE
+
+Model and dependency licenses are listed in app/licenses.json and in Options.

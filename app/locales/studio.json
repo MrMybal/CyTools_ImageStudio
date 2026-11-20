@@ -1,0 +1,675 @@
+{
+  "Backend": { "en": "Backend", "fr": "Moteur" },
+  "Checkpoint depth": { "en": "Checkpoint depth", "fr": "Profondeur de checkpoint" },
+  "LoRA precision": { "en": "LoRA precision", "fr": "Précision du LoRA" },
+  "Loss function": { "en": "Loss function", "fr": "Fonction de perte" },
+  "Adapter hooks for quantized models": { "en": "Adapter hooks for quantized models", "fr": "Adaptateurs sur modèles quantifiés" },
+  "Quantized backward": { "en": "Quantized backward", "fr": "Rétropropagation quantifiée" },
+  "Training memory and precision": { "en": "Training memory and precision", "fr": "Mémoire et précision de l’entraînement" },
+  "Choose an absolute writable model directory.": { "en": "Choose an absolute writable model directory.", "fr": "Choisissez un chemin absolu pour le dossier d’écriture des modèles." },
+  "Hugging Face access": { "en": "Hugging Face access", "fr": "Accès Hugging Face" },
+  "Hugging Face token": { "en": "Hugging Face token", "fr": "Jeton Hugging Face" },
+  "Use token for this session": { "en": "Use token for this session", "fr": "Utiliser le jeton pour cette session" },
+  "Open Hugging Face token settings": { "en": "Open Hugging Face token settings", "fr": "Ouvrir les réglages de jetons Hugging Face" },
+  "Server bearer token": { "en": "Server bearer token", "fr": "Jeton d’accès du serveur" },
+  "No matching model recipe on this server.": { "en": "No matching model recipe on this server.", "fr": "Aucune recette de modèle compatible sur ce serveur." },
+  "Suggest installed models": { "en": "Suggest installed models", "fr": "Suggérer des modèles installés" },
+  "Suggested recipe": { "en": "Suggested recipe", "fr": "Recette suggérée" },
+  "Select a recipe": { "en": "Select a recipe", "fr": "Choisir une recette" },
+  "ImageStudio installation": {
+    "en": "ImageStudio installation",
+    "fr": "Installation ImageStudio"
+  },
+  "Installed ComfyUI": {
+    "en": "Installed ComfyUI",
+    "fr": "ComfyUI déjà installé"
+  },
+  "Local server": {
+    "en": "Local server",
+    "fr": "Serveur local"
+  },
+  "Remote server": {
+    "en": "Remote server",
+    "fr": "Serveur distant"
+  },
+  "Text to image": {
+    "en": "Text to image",
+    "fr": "Texte vers image"
+  },
+  "Image to image": {
+    "en": "Image to image",
+    "fr": "Image vers image"
+  },
+  "Inpainting": {
+    "en": "Inpainting",
+    "fr": "Retouche au masque"
+  },
+  "Checkpoint · SD / SDXL / all-in-one": {
+    "en": "Checkpoint · SD / SDXL / all-in-one",
+    "fr": "Checkpoint · SD / SDXL / tout-en-un"
+  },
+  "Diffusion model": {
+    "en": "Diffusion model",
+    "fr": "Modèle de diffusion"
+  },
+  "Text encoder": {
+    "en": "Text encoder",
+    "fr": "Encodeur de texte"
+  },
+  "Second text encoder": {
+    "en": "Second text encoder",
+    "fr": "Deuxième encodeur de texte"
+  },
+  "Weight precision": {
+    "en": "Weight precision",
+    "fr": "Précision des poids"
+  },
+  "Encoder device": {
+    "en": "Encoder device",
+    "fr": "Périphérique de l’encodeur"
+  },
+  "Sampler": {
+    "en": "Sampler",
+    "fr": "Échantillonneur"
+  },
+  "Scheduler": {
+    "en": "Scheduler",
+    "fr": "Planificateur"
+  },
+  "Width": {
+    "en": "Width",
+    "fr": "Largeur"
+  },
+  "Height": {
+    "en": "Height",
+    "fr": "Hauteur"
+  },
+  "Steps": {
+    "en": "Steps",
+    "fr": "Étapes"
+  },
+  "Images": {
+    "en": "Images",
+    "fr": "Images"
+  },
+  "FLUX guidance": {
+    "en": "FLUX guidance",
+    "fr": "Guidage FLUX"
+  },
+  "Denoise": {
+    "en": "Denoise",
+    "fr": "Débruitage"
+  },
+  "Inpainting method": {
+    "en": "Inpainting method",
+    "fr": "Méthode de retouche"
+  },
+  "Tiled VAE decode": {
+    "en": "Tiled VAE decode",
+    "fr": "Décodage VAE par tuiles"
+  },
+  "Tile size": {
+    "en": "Tile size",
+    "fr": "Taille de tuile"
+  },
+  "Tile overlap": {
+    "en": "Tile overlap",
+    "fr": "Chevauchement des tuiles"
+  },
+  "Timeout (seconds)": {
+    "en": "Timeout (seconds)",
+    "fr": "Délai (secondes)"
+  },
+  "Seed (-1 = random)": {
+    "en": "Seed (-1 = random)",
+    "fr": "Graine (-1 = aléatoire)"
+  },
+  "Batch size": {
+    "en": "Batch size",
+    "fr": "Taille du lot"
+  },
+  "Learning rate": {
+    "en": "Learning rate",
+    "fr": "Taux d’apprentissage"
+  },
+  "Rank": {
+    "en": "Rank",
+    "fr": "Rang"
+  },
+  "Gradient accumulation": {
+    "en": "Gradient accumulation",
+    "fr": "Accumulation des gradients"
+  },
+  "Gradient checkpointing": {
+    "en": "Gradient checkpointing",
+    "fr": "Points de reprise des gradients"
+  },
+  "Optimizer": {
+    "en": "Optimizer",
+    "fr": "Optimiseur"
+  },
+  "Training precision": {
+    "en": "Training precision",
+    "fr": "Précision d’entraînement"
+  },
+  "CPU weight offload": {
+    "en": "CPU weight offload",
+    "fr": "Déporter les poids sur le CPU"
+  },
+  "Continue from LoRA": {
+    "en": "Continue from LoRA",
+    "fr": "Poursuivre depuis un LoRA"
+  },
+  "Browse": {
+    "en": "Browse",
+    "fr": "Parcourir"
+  },
+  "Studio": {
+    "en": "Studio",
+    "fr": "Studio"
+  },
+  "Workflows": {
+    "en": "Workflows",
+    "fr": "Workflows"
+  },
+  "Models": {
+    "en": "Models",
+    "fr": "Modèles"
+  },
+  "LoRA training": {
+    "en": "LoRA training",
+    "fr": "Entraînement LoRA"
+  },
+  "Completed": {
+    "en": "Completed",
+    "fr": "Terminé"
+  },
+  "Select a file": {
+    "en": "Select a file",
+    "fr": "Sélectionner un fichier"
+  },
+  "Model family": {
+    "en": "Model family",
+    "fr": "Famille de modèles"
+  },
+  "Open image": {
+    "en": "Open image",
+    "fr": "Ouvrir une image"
+  },
+  "Fit view": {
+    "en": "Fit view",
+    "fr": "Ajuster la vue"
+  },
+  "Canvas view": {
+    "en": "Canvas view",
+    "fr": "Vue du canvas"
+  },
+  "Source image": {
+    "en": "Source image",
+    "fr": "Image source"
+  },
+  "Use as source": {
+    "en": "Use as source",
+    "fr": "Utiliser comme source"
+  },
+  "Save image": {
+    "en": "Save image",
+    "fr": "Enregistrer l’image"
+  },
+  "Load mask": {
+    "en": "Load mask",
+    "fr": "Charger un masque"
+  },
+  "Undo mask": {
+    "en": "Undo mask",
+    "fr": "Annuler le trait"
+  },
+  "Clear mask": {
+    "en": "Clear mask",
+    "fr": "Effacer le masque"
+  },
+  "Erase": {
+    "en": "Erase",
+    "fr": "Gomme"
+  },
+  "Brush size": {
+    "en": "Brush size",
+    "fr": "Taille du pinceau"
+  },
+  "Wheel to zoom · Middle drag or Space + drag to pan": {
+    "en": "Wheel to zoom · Middle drag or Space + drag to pan",
+    "fr": "Molette pour zoomer · clic milieu ou Espace + glisser pour déplacer"
+  },
+  "Open an image or generate one to begin": {
+    "en": "Open an image or generate one to begin",
+    "fr": "Ouvrez une image ou lancez une génération"
+  },
+  "Add LoRA": {
+    "en": "Add LoRA",
+    "fr": "Ajouter un LoRA"
+  },
+  "Add ControlNet": {
+    "en": "Add ControlNet",
+    "fr": "Ajouter un ControlNet"
+  },
+  "Remove": {
+    "en": "Remove",
+    "fr": "Retirer"
+  },
+  "LoRA file": {
+    "en": "LoRA file",
+    "fr": "Fichier LoRA"
+  },
+  "Model strength": {
+    "en": "Model strength",
+    "fr": "Intensité du modèle"
+  },
+  "Encoder strength": {
+    "en": "Encoder strength",
+    "fr": "Intensité de l’encodeur"
+  },
+  "ControlNet model": {
+    "en": "ControlNet model",
+    "fr": "Modèle ControlNet"
+  },
+  "Control image": {
+    "en": "Control image",
+    "fr": "Image de contrôle"
+  },
+  "Use canvas source": {
+    "en": "Use canvas source",
+    "fr": "Utiliser la source du canvas"
+  },
+  "Preprocessor": {
+    "en": "Preprocessor",
+    "fr": "Préprocesseur"
+  },
+  "Prepared map": {
+    "en": "Prepared map",
+    "fr": "Carte préparée"
+  },
+  "Strength": {
+    "en": "Strength",
+    "fr": "Intensité"
+  },
+  "Start": {
+    "en": "Start",
+    "fr": "Début"
+  },
+  "End": {
+    "en": "End",
+    "fr": "Fin"
+  },
+  "Canny low": {
+    "en": "Canny low",
+    "fr": "Seuil Canny bas"
+  },
+  "Canny high": {
+    "en": "Canny high",
+    "fr": "Seuil Canny haut"
+  },
+  "Generate image": {
+    "en": "Generate image",
+    "fr": "Générer une image"
+  },
+  "Task": {
+    "en": "Task",
+    "fr": "Tâche"
+  },
+  "Prompt": {
+    "en": "Prompt",
+    "fr": "Prompt"
+  },
+  "Negative prompt": {
+    "en": "Negative prompt",
+    "fr": "Prompt négatif"
+  },
+  "Generate": {
+    "en": "Generate",
+    "fr": "Générer"
+  },
+  "Sampling": {
+    "en": "Sampling",
+    "fr": "Échantillonnage"
+  },
+  "ComfyUI workflow": {
+    "en": "ComfyUI workflow",
+    "fr": "Workflow ComfyUI"
+  },
+  "Workflow JSON or PNG": {
+    "en": "Workflow JSON or PNG",
+    "fr": "Workflow JSON ou PNG"
+  },
+  "Inspect workflow": {
+    "en": "Inspect workflow",
+    "fr": "Analyser le workflow"
+  },
+  "Run workflow": {
+    "en": "Run workflow",
+    "fr": "Lancer le workflow"
+  },
+  "Missing nodes": {
+    "en": "Missing nodes",
+    "fr": "Nœuds manquants"
+  },
+  "Upload local image": {
+    "en": "Upload local image",
+    "fr": "Envoyer une image locale"
+  },
+  "Available models": {
+    "en": "Available models",
+    "fr": "Modèles disponibles"
+  },
+  "Refresh the selected server to list its models.": {
+    "en": "Refresh the selected server to list its models.",
+    "fr": "Actualisez le serveur sélectionné pour lister ses modèles."
+  },
+  "Download weights": {
+    "en": "Download weights",
+    "fr": "Télécharger des poids"
+  },
+  "Catalog": {
+    "en": "Catalog",
+    "fr": "Catalogue"
+  },
+  "Custom URL": {
+    "en": "Custom URL",
+    "fr": "URL personnalisée"
+  },
+  "Open model card and license": {
+    "en": "Open model card and license",
+    "fr": "Ouvrir la fiche du modèle et la licence"
+  },
+  "Model category": {
+    "en": "Model category",
+    "fr": "Catégorie du modèle"
+  },
+  "File name": {
+    "en": "File name",
+    "fr": "Nom du fichier"
+  },
+  "Direct HTTPS URL": {
+    "en": "Direct HTTPS URL",
+    "fr": "URL HTTPS directe"
+  },
+  "Expected SHA256": {
+    "en": "Expected SHA256",
+    "fr": "SHA256 attendu"
+  },
+  "I accept the provider terms": {
+    "en": "I accept the provider terms",
+    "fr": "J’accepte les conditions du fournisseur"
+  },
+  "Download / resume": {
+    "en": "Download / resume",
+    "fr": "Télécharger / reprendre"
+  },
+  "Downloads go to the writable library. External servers manage their own model files.": {
+    "en": "Downloads go to the writable library. External servers manage their own model files.",
+    "fr": "Les téléchargements vont dans la bibliothèque d’écriture. Chaque serveur externe gère ses fichiers de modèles."
+  },
+  "Install a local model file": {
+    "en": "Install a local model file",
+    "fr": "Installer un fichier de modèle local"
+  },
+  "Model file": {
+    "en": "Model file",
+    "fr": "Fichier de modèle"
+  },
+  "Install in library": {
+    "en": "Install in library",
+    "fr": "Installer dans la bibliothèque"
+  },
+  "Train a LoRA": {
+    "en": "Train a LoRA",
+    "fr": "Entraîner un LoRA"
+  },
+  "Guided training uses an ImageStudio-launched engine and native ComfyUI training nodes.": {
+    "en": "Guided training uses an ImageStudio-launched engine and native ComfyUI training nodes.",
+    "fr": "L’entraînement guidé utilise un moteur lancé par ImageStudio et des nœuds d’entraînement natifs de ComfyUI."
+  },
+  "Add training images": {
+    "en": "Add training images",
+    "fr": "Ajouter des images d’entraînement"
+  },
+  "Caption": {
+    "en": "Caption",
+    "fr": "Description"
+  },
+  "Train LoRA": {
+    "en": "Train LoRA",
+    "fr": "Entraîner le LoRA"
+  },
+  "Add trained LoRA to library": {
+    "en": "Add trained LoRA to library",
+    "fr": "Ajouter le LoRA entraîné à la bibliothèque"
+  },
+  "Export job files": {
+    "en": "Export job files",
+    "fr": "Exporter les fichiers du job"
+  },
+  "ComfyUI connections": {
+    "en": "ComfyUI connections",
+    "fr": "Connexions ComfyUI"
+  },
+  "Default backend": {
+    "en": "Default backend",
+    "fr": "Moteur par défaut"
+  },
+  "ComfyUI main.py": {
+    "en": "ComfyUI main.py",
+    "fr": "Fichier main.py de ComfyUI"
+  },
+  "ComfyUI Python": {
+    "en": "ComfyUI Python",
+    "fr": "Python de ComfyUI"
+  },
+  "Load trusted custom nodes": {
+    "en": "Load trusted custom nodes",
+    "fr": "Charger les nœuds personnalisés de confiance"
+  },
+  "ComfyUI base URL": {
+    "en": "ComfyUI base URL",
+    "fr": "URL de base ComfyUI"
+  },
+  "Server supports prompt-specific cancellation": {
+    "en": "Server supports prompt-specific cancellation",
+    "fr": "Le serveur sait annuler un prompt précis"
+  },
+  "compute": {
+    "en": "compute",
+    "fr": "Calcul"
+  },
+  "Install / resume ComfyUI": {
+    "en": "Install / resume ComfyUI",
+    "fr": "Installer / reprendre ComfyUI"
+  },
+  "Model search folders": {
+    "en": "Model search folders",
+    "fr": "Dossiers de recherche de modèles"
+  },
+  "Writable library": {
+    "en": "Writable library",
+    "fr": "Bibliothèque d’écriture"
+  },
+  "Folder type": {
+    "en": "Folder type",
+    "fr": "Type de dossier"
+  },
+  "ComfyUI models library": {
+    "en": "ComfyUI models library",
+    "fr": "Bibliothèque de modèles ComfyUI"
+  },
+  "Existing folder": {
+    "en": "Existing folder",
+    "fr": "Dossier existant"
+  },
+  "Add search folder": {
+    "en": "Add search folder",
+    "fr": "Ajouter un dossier de recherche"
+  },
+  "Choose an existing folder.": {
+    "en": "Choose an existing folder.",
+    "fr": "Choisissez un dossier existant."
+  },
+  "Search folders are referenced in place by engines launched here.": {
+    "en": "Search folders are referenced in place by engines launched here.",
+    "fr": "Les moteurs lancés ici référencent les dossiers sur place."
+  },
+  "RAM and VRAM": {
+    "en": "RAM and VRAM",
+    "fr": "RAM et VRAM"
+  },
+  "Memory profile": {
+    "en": "Memory profile",
+    "fr": "Profil mémoire"
+  },
+  "Balanced": {
+    "en": "Balanced",
+    "fr": "Équilibré"
+  },
+  "Low VRAM": {
+    "en": "Low VRAM",
+    "fr": "VRAM réduite"
+  },
+  "Minimum VRAM": {
+    "en": "Minimum VRAM",
+    "fr": "VRAM minimale"
+  },
+  "Reserved VRAM (GiB)": {
+    "en": "Reserved VRAM (GiB)",
+    "fr": "VRAM réservée (Gio)"
+  },
+  "CUDA device index (blank = default)": {
+    "en": "CUDA device index (blank = default)",
+    "fr": "Indice CUDA (vide = défaut)"
+  },
+  "Unload weights after every job": {
+    "en": "Unload weights after every job",
+    "fr": "Décharger les poids après chaque job"
+  },
+  "Save connection and model settings": {
+    "en": "Save connection and model settings",
+    "fr": "Enregistrer les réglages de connexion et de modèles"
+  },
+  "Settings saved": {
+    "en": "Settings saved",
+    "fr": "Réglages enregistrés"
+  },
+  "CUDA device index must be a nonnegative integer.": {
+    "en": "CUDA device index must be a nonnegative integer.",
+    "fr": "L’indice CUDA doit être un entier positif ou nul."
+  },
+  "Release memory": {
+    "en": "Release memory",
+    "fr": "Libérer la mémoire"
+  },
+  "Stop owned engine": {
+    "en": "Stop owned engine",
+    "fr": "Arrêter le moteur géré"
+  },
+  "Start local MCP service": {
+    "en": "Start local MCP service",
+    "fr": "Démarrer le service MCP local"
+  },
+  "Copy MCP URL": {
+    "en": "Copy MCP URL",
+    "fr": "Copier l’URL MCP"
+  },
+  "Stop MCP service": {
+    "en": "Stop MCP service",
+    "fr": "Arrêter le service MCP"
+  },
+  "Language, theme, recipes and licenses": {
+    "en": "Language, theme, recipes and licenses",
+    "fr": "Langue, thème, recettes et licences"
+  },
+  "Refresh models": {
+    "en": "Refresh models",
+    "fr": "Actualiser les modèles"
+  },
+  "Application updates": {
+    "en": "Application updates",
+    "fr": "Mises à jour de l’application"
+  },
+  "GitHub repository (owner/name)": {
+    "en": "GitHub repository (owner/name)",
+    "fr": "Dépôt GitHub (propriétaire/nom)"
+  },
+  "Update available": {
+    "en": "Update available",
+    "fr": "Mise à jour disponible"
+  },
+  "Already up to date": {
+    "en": "Already up to date",
+    "fr": "Déjà à jour"
+  },
+  "Update verified and staged": {
+    "en": "Update verified and staged",
+    "fr": "Mise à jour vérifiée et prête"
+  },
+  "Check GitHub release": {
+    "en": "Check GitHub release",
+    "fr": "Vérifier les versions GitHub"
+  },
+  "Download and verify update": {
+    "en": "Download and verify update",
+    "fr": "Télécharger et vérifier la mise à jour"
+  },
+  "Apply on next launch": {
+    "en": "Apply on next launch",
+    "fr": "Appliquer au prochain lancement"
+  },
+  "Restart ImageStudio to apply the update.": {
+    "en": "Restart ImageStudio to apply the update.",
+    "fr": "Redémarrez ImageStudio pour appliquer la mise à jour."
+  },
+  "Restore previous version on next launch": {
+    "en": "Restore previous version on next launch",
+    "fr": "Rétablir la version précédente au prochain lancement"
+  },
+  "Restart ImageStudio to restore the previous version.": {
+    "en": "Restart ImageStudio to restore the previous version.",
+    "fr": "Redémarrez ImageStudio pour rétablir la version précédente."
+  },
+  "Queued in ComfyUI": {
+    "en": "Queued in ComfyUI",
+    "fr": "En file d’attente dans ComfyUI"
+  },
+  "Collecting ComfyUI outputs": {
+    "en": "Collecting ComfyUI outputs",
+    "fr": "Récupération des résultats ComfyUI"
+  },
+  "Downloading ComfyUI": {
+    "en": "Downloading ComfyUI",
+    "fr": "Téléchargement de ComfyUI"
+  },
+  "Creating private ComfyUI Python": {
+    "en": "Creating private ComfyUI Python",
+    "fr": "Création du Python privé de ComfyUI"
+  },
+  "Installing PyTorch": {
+    "en": "Installing PyTorch",
+    "fr": "Installation de PyTorch"
+  },
+  "Installing ComfyUI dependencies": {
+    "en": "Installing ComfyUI dependencies",
+    "fr": "Installation des dépendances ComfyUI"
+  },
+  "noise_mask": {
+    "en": "noise_mask",
+    "fr": "Masque de bruit"
+  },
+  "conditioning": {
+    "en": "conditioning",
+    "fr": "Conditionnement"
+  },
+  "default": {
+    "en": "default",
+    "fr": "Par défaut"
+  },
+  "Use source dimensions": {
+    "en": "Use source dimensions",
+    "fr": "Utiliser les dimensions de la source"
+  }
+}

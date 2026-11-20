@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Stable Diffusion 1.5",
+    "license": "CreativeML Open RAIL-M",
+    "estimated": "4.27 GB",
+    "source": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5",
+    "download": {
+      "category": "checkpoints",
+      "filename": "v1-5-pruned-emaonly.safetensors",
+      "size": 4265146304,
+      "url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/f03de32/v1-5-pruned-emaonly.safetensors",
+      "sha256": "6ce0161689b3853acaa03779ec93eafe75a02f4ced659bee03f50797806fa2fa",
+      "revision": "f03de32"
+    }
+  },
+  {
+    "name": "FLUX.1 Schnell · FP8",
+    "license": "Apache-2.0",
+    "estimated": "17.2 GB",
+    "source": "https://huggingface.co/Comfy-Org/Flux-1-Schnell",
+    "download": {
+      "category": "checkpoints",
+      "filename": "flux1-schnell-fp8.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Flux-1-Schnell/resolve/0cb207e/flux1-schnell-fp8.safetensors",
+      "sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+      "revision": "0cb207e"
+    }
+  },
+  {
+    "name": "Qwen Image · diffusion FP8",
+    "license": "Apache-2.0",
+    "estimated": "20.4 GB",
+    "source": "https://huggingface.co/Comfy-Org/Qwen-Image",
+    "download": {
+      "category": "diffusion_models",
+      "filename": "qwen_image_fp8_e4m3fn.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Qwen-Image/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors",
+      "sha256": "98763a127701eb6fb59096f7742cb3aa7d64ed510b9f4e882d8351f8176e3ce3"
+    }
+  },
+  {
+    "name": "Qwen Image · encoder FP8",
+    "license": "Apache-2.0",
+    "estimated": "9.38 GB",
+    "source": "https://huggingface.co/Comfy-Org/Qwen-Image",
+    "download": {
+      "category": "text_encoders",
+      "filename": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Qwen-Image/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "sha256": "cb5636d852a0ea6a9075ab1bef496c0db7aef13c02350571e388aea959c5c0b4"
+    }
+  },
+  {
+    "name": "Qwen Image · VAE",
+    "license": "Apache-2.0",
+    "estimated": "254 MB",
+    "source": "https://huggingface.co/Comfy-Org/Qwen-Image",
+    "download": {
+      "category": "vae",
+      "filename": "qwen_image_vae.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Qwen-Image/resolve/main/split_files/vae/qwen_image_vae.safetensors",
+      "sha256": "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f"
+    }
+  }
+]
